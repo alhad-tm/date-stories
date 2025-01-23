@@ -4,13 +4,13 @@ import axios from "axios";
 const Stories = () => {
   const [currentStory, setCurrentStory] = useState("");
   const [searching, setSearching] = useState("");
-  const [searchedStory, setSearchedstory] = useState("");
+  const [searchedStory, setSearchedStory] = useState("");
 
   const date = new Date();
   const day = date.getDate();
   const month = date.getMonth() + 1;
-  console.log(day, "hi day");
-  console.log(month, "hi month");
+  console.log(day, "is the day");
+  console.log(month, "is the month");
 
   useEffect(() => {
     const getStories = async () => {
@@ -31,24 +31,24 @@ const Stories = () => {
   }, [day, month]);
 
   const handleSearch = async (e) => {
-    e.preventDefault(); 
-    setSearching("");  //Clear input
+    e.preventDefault();
+    setSearching(""); //Clear input field
 
-    //validation
+    // Validation
     if (!searching.match(/^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])$/)) {
-      setSearchedstory(
+      setSearchedStory(
         "Invalid date format. Please use MM/DD and ensure the date is valid"
       );
-      return;
+      return; 
     }
 
     try {
       const response = await axios.get(
         `http://numbersapi.com/${searching}/date`
       );
-      setSearchedstory(response.data);
+      setSearchedStory(response.data);
     } catch (error) {
-      setSearchedstory("Failed to fetch story for the entered date.");
+      setSearchedStory("Failed to fetch story for the entered date.");
     }
     setSearching("");
   };
